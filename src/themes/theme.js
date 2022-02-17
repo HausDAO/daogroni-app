@@ -72,6 +72,18 @@ export const createTheme = daoTheme => {
         800: darken(0.15, themeOverrides.secondary500),
         900: darken(0.2, themeOverrides.secondary500),
       },
+      tertiary: {
+        50: lighten(0.4, themeOverrides.tertiary500),
+        100: lighten(0.3, themeOverrides.tertiary500),
+        200: lighten(0.2, themeOverrides.tertiary500),
+        300: lighten(0.1, themeOverrides.tertiary500),
+        400: lighten(0.05, themeOverrides.tertiary500),
+        500: themeOverrides.tertiary500,
+        600: darken(0.05, themeOverrides.tertiary500),
+        700: darken(0.1, themeOverrides.tertiary500),
+        800: darken(0.15, themeOverrides.tertiary500),
+        900: darken(0.2, themeOverrides.tertiary500),
+      },
       mode: {
         50: themeOverrides.modeAlpha500,
         100: themeOverrides.modeAlpha500,

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
 import { Spinner } from '@chakra-ui/spinner';
 
 import GenericInput from './genericInput';
 import { validate } from '../utils/validation';
 import { checkContractType } from '../utils/tokenExplorerApi';
+import { daogroniData } from '../utils/chain';
 
 const GatedInput = props => {
   const { localForm, only, name } = props;
-  const { daochain } = useParams();
+  const { daochain } = daogroniData;
   const [isCorrect, setIsCorrect] = useState(null);
   const [loading, setLoading] = useState(false);
 

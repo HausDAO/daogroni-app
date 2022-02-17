@@ -343,6 +343,7 @@ export const createNewTheme = newTheme => {
     colors: {
       primary: getAllShades(newTheme.primary500),
       secondary: getAllShades(newTheme.secondary500),
+      tertiary: getAllShades(newTheme.tertiary500),
       background: getAllShades(newTheme.bg500),
     },
   };

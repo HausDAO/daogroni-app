@@ -5,17 +5,16 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { TXProvider } from './TXContext';
 import { bigGraphQuery } from '../utils/theGraph';
-import { supportedChains } from '../utils/chain';
+import { daogroniData, supportedChains } from '../utils/chain';
 import { putRefreshApiVault } from '../utils/metadata';
 
 export const DaoContext = createContext();
 
 export const DaoProvider = ({ children }) => {
-  const { daoid, daochain } = useParams();
+  const { daoid, daochain } = daogroniData;
 
   const daoNetworkData = supportedChains[daochain];
 

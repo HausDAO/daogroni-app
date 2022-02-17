@@ -1,4 +1,5 @@
 import React from 'react';
+import { DaoProvider } from './contexts/DaoContext';
 import { TxPollContextProvider } from './contexts/TxPollContext';
 
 import TxInfoModal from './modals/TxInfoModal';
@@ -8,7 +9,9 @@ function App() {
   return (
     <TxPollContextProvider>
       <TxInfoModal />
-      <BaseRouter />
+      <DaoProvider>
+        <BaseRouter />
+      </DaoProvider>
     </TxPollContextProvider>
   );
 }

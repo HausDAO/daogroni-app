@@ -1,10 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { Flex, Icon, Link } from '@chakra-ui/react';
 import { RiExternalLinkLine } from 'react-icons/ri';
 
+import { daogroniData } from '../utils/chain';
+
 const DaohausLink = ({ linkText }) => {
-  const { daoid, daochain } = useParams();
+  const { daoid, daochain } = daogroniData;
   return (
     <Link
       href={`https://app.daohaus.club/dao/${daochain}/${daoid}`}

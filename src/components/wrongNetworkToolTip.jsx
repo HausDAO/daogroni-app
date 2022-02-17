@@ -1,19 +1,23 @@
 import React from 'react';
 import { RiInformationLine } from 'react-icons/ri';
-import { useParams } from 'react-router-dom';
 import { Box, Button, Flex, Icon, Tooltip } from '@chakra-ui/react';
 
 import { useInjectedProvider } from '../contexts/InjectedProviderContext';
 import useCanInteract from '../hooks/useCanInteract';
 import { capitalize } from '../utils/general';
-import { chainByID, EIP3085, MM_ADDCHAIN_DATA } from '../utils/chain';
+import {
+  chainByID,
+  daogroniData,
+  EIP3085,
+  MM_ADDCHAIN_DATA,
+} from '../utils/chain';
 
 const WrongNetworkToolTip = () => {
   const { address, injectedProvider } = useInjectedProvider();
   const { canInteract } = useCanInteract({
     checklist: ['isConnected', 'isSameChain'],
   });
-  const { daochain } = useParams();
+  const { daochain } = daogroniData;
   const daoChainName = chainByID(daochain)?.name;
 
   const handleSwitchNetwork = async () => {
@@ -36,7 +40,8 @@ const WrongNetworkToolTip = () => {
   }
 
   if (canInteract || !injectedProvider?.currentProvider?.isMetaMask) {
-    return <NetworkTextBox name={daoChainName} />;
+    // return <NetworkTextBox name={daoChainName} />;
+    return null;
   }
 
   return (
@@ -94,13 +99,13 @@ const WrongNetworkToolTip = () => {
 };
 export default WrongNetworkToolTip;
 
-const NetworkTextBox = ({ name }) => (
-  <Flex align='center' mr={5} p='5px 12px' borderRadius='20px'>
-    <Box fontSize='md' fontWeight={200} color='white'>
-      {name}
-    </Box>
-  </Flex>
-);
+// const NetworkTextBox = ({ name }) => (
+//   <Flex align='center' mr={5} p='5px 12px' borderRadius='20px'>
+//     <Box fontSize='md' fontWeight={200} color='white'>
+//       {name}
+//     </Box>
+//   </Flex>
+// );
 
 const ToolTipLabel = ({ daoChainName }) => (
   <Box fontFamily='heading' color='white'>

@@ -1,23 +1,25 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
+import { Box, Text } from '@chakra-ui/react';
 
-import { CustomThemeContext } from '../contexts/CustomThemeContext';
 import Layout from '../components/layout';
-import ExampleHomeDaoList from '../components/exampleHomeDaoList';
+import CocktailList from '../components/cocktailIst';
 
 const Home = () => {
-  const { theme, resetTheme } = useContext(CustomThemeContext);
-
-  useEffect(() => {
-    if (theme.active) {
-      resetTheme();
-    }
-  }, [theme, resetTheme]);
-
   return (
-    <Layout>
-      <ExampleHomeDaoList />
+    <Layout isDao>
+      <Box p={{ base: 6, md: 10 }}>
+        <Text color='tertiary.500' fontSize='xl'>
+          Menu
+        </Text>
+        <CocktailList />
+      </Box>
     </Layout>
   );
 };
 
 export default Home;
+
+// load nft info - hardcoded for now
+// list menu
+// maybe get some data from the contract - available nfts or somthing
+// mint function

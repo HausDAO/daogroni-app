@@ -1,16 +1,18 @@
 import { rgba } from 'polished';
 
 import BrandImg from '../assets/img/Daohaus__Castle--Dark.svg';
-import BgImg from '../assets/img/daohaus__hero--falling.jpg';
+import BgImg from '../assets/img/daogroni-background.png';
 
 export const defaultTheme = {
-  primary500: '#10153d',
-  primaryAlpha: rgba('#10153d', 0.9),
-  secondary500: '#EB8A23',
-  secondaryAlpha: rgba('#10153d', 0.75),
-  bg500: '#03061B',
-  bgAlpha: '#03061B',
-  bgOverlayOpacity: 0.75,
+  primary500: '#EFEBE6',
+  primaryAlpha: rgba('#EFEBE6', 0.9),
+  secondary500: '#AB7744',
+  secondaryAlpha: rgba('#AB7744', 0.75),
+  tertiary500: '#192954',
+  tertiaryAlpha: rgba('#192954', 0.75),
+  bg500: '#EFEBE6',
+  bgAlpha: '#EFEBE6',
+  bgOverlayOpacity: 0,
   modeAlpha500: '#FFFFFF',
   headingFont: 'Mulish',
   bodyFont: 'Rubik',

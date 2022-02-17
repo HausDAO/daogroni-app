@@ -23,32 +23,17 @@ import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { useInjectedProvider } from '../contexts/InjectedProviderContext';
 import { useOverlay } from '../contexts/OverlayContext';
 import AddressAvatar from './addressAvatar';
-import Brand from './brand';
 import WrongNetworkToolTip from './wrongNetworkToolTip';
+import { chainByID, daogroniData } from '../utils/chain';
 
 const NAV_ITEMS = [
   {
-    label: 'Home',
+    label: 'Menu',
     href: '/',
   },
   {
-    label: 'Dao',
-    href: '/dao/0x4/0x9fc4eff9db153a17e92d9213c52c6af97409ce01',
-  },
-  {
-    label: 'Nav DD',
-    children: [
-      {
-        label: 'Proposals Example',
-        subLabel: '',
-        href: '/dao/0x4/0x9fc4eff9db153a17e92d9213c52c6af97409ce01/proposals',
-      },
-      {
-        label: 'Item 2',
-        subLabel: 'Yolo',
-        href: '#',
-      },
-    ],
+    label: 'My Cocktails',
+    href: '/cocktails',
   },
 ];
 
@@ -57,13 +42,23 @@ const Navigation = ({ isDao }) => {
   const { address, requestWallet } = useInjectedProvider();
   const { setHubAccountModal } = useOverlay();
 
+  const { daochain } = daogroniData;
+  const daoChainName = chainByID(daochain)?.name;
+
   const toggleAccountModal = () => {
     setHubAccountModal(prevState => !prevState);
   };
 
   return (
     <Box>
-      <Flex bg='primary.500' minH='80px' p={5} align='center'>
+      <Flex
+        bg='primary.500'
+        minH='80px'
+        p={5}
+        align='center'
+        borderBottom='1px solid'
+        borderColor='secondary.500'
+      >
         <Flex
           flex={{ base: 1, md: 'auto' }}
           ml={{ base: -2 }}
@@ -84,13 +79,31 @@ const Navigation = ({ isDao }) => {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Box textAlign={useBreakpointValue({ base: 'center', md: 'left' })}>
-            <Brand />
+            <Text fontSize='2xl' color='tertiary.500'>
+              DAOgroni
+            </Text>
+            <Text
+              fontSize='sm'
+              mb={{ base: 8, md: 3 }}
+              textTransform='uppercase'
+              color='secondary.500'
+            >
+              by DAOhaus
+            </Text>
           </Box>
 
           <Flex display={{ base: 'none', md: 'flex' }} ml={10} align='center'>
             <DesktopNav />
           </Flex>
         </Flex>
+
+        <Link
+          mr={5}
+          fontSize='sm'
+          href='https://app.daohaus.club/dao/0x64/0xc8e0d7fd13eb3cbc19eb293d0e00b8386cc1b6f2/proposals/149'
+        >
+          Visit the DAO
+        </Link>
 
         {isDao && <WrongNetworkToolTip />}
 
@@ -100,7 +113,7 @@ const Navigation = ({ isDao }) => {
           </Button>
         ) : (
           <Button variant='outline' onClick={requestWallet}>
-            Connect Wallet
+            Connect to {daoChainName}
           </Button>
         )}
       </Flex>
@@ -113,9 +126,9 @@ const Navigation = ({ isDao }) => {
 };
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('white.600', 'white.200');
-  const linkHoverColor = useColorModeValue('white.800', 'white');
-  const popoverContentBgColor = useColorModeValue('white', 'white.800');
+  const linkColor = useColorModeValue('tertiary.600', 'tertiary.200');
+  const linkHoverColor = useColorModeValue('tertiary.800', 'tertiary');
+  const popoverContentBgColor = useColorModeValue('tertiary', 'tertiary.800');
 
   return (
     <Stack direction='row' spacing={4}>

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router';
 import { Spinner } from '@chakra-ui/spinner';
 
 import GenericSelect from './genericSelect';
@@ -12,10 +11,11 @@ import {
   formatFNsAsSelectOptions,
 } from '../utils/abi';
 import { getTxFromName } from '../utils/txHelpers';
+import { daogroniData } from '../utils/chain';
 
 const AbiInput = props => {
   const { localForm, listenTo, name, buildABIOptions, hideHex } = props;
-  const { daochain } = useParams();
+  const { daochain } = daogroniData;
   const [isRawHex, setRawHex] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [loading, setLoading] = useState(false);

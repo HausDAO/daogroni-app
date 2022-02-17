@@ -1,5 +1,4 @@
 import React from 'react';
-import { useParams } from 'react-router';
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { Avatar } from '@chakra-ui/avatar';
 import { Button } from '@chakra-ui/button';
@@ -9,10 +8,11 @@ import { useAppModal } from '../hooks/useModals';
 import { useDao } from '../contexts/DaoContext';
 import { themeImagePath } from '../utils/metadata';
 import { FORM } from '../data/forms';
+import { daogroniData } from '../utils/chain';
 
 const DaoProposals = () => {
   const { daoOverview, daoProposals } = useDao();
-  const { daoid } = useParams();
+  const { daoid } = daogroniData;
   const { formModal } = useAppModal();
 
   const handleProposalClick = () => formModal(FORM.FUNDING);

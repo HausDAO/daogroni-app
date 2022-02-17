@@ -1,5 +1,4 @@
 import React, { useContext, createContext } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { useDao } from './DaoContext';
 import { useInjectedProvider } from './InjectedProviderContext';
@@ -15,7 +14,7 @@ import {
 } from '../utils/txHelpers';
 import { createPoll } from '../utils/pollService';
 import { customValidations } from '../utils/validation';
-import { supportedChains } from '../utils/chain';
+import { daogroniData, supportedChains } from '../utils/chain';
 import { TX } from '../data/contractTX';
 import { handleChecklist } from '../utils/appChecks';
 
@@ -38,7 +37,7 @@ export const TXProvider = ({ children }) => {
     setGenericModal,
   } = useOverlay();
 
-  const { daoid, daochain, minion } = useParams();
+  const { daoid, daochain, minion } = daogroniData;
   const chainConfig = supportedChains[daochain];
 
   const contextData = {

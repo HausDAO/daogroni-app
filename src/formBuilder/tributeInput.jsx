@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { Spinner } from '@chakra-ui/react';
 import { MaxUint256 } from '@ethersproject/constants';
 
@@ -15,11 +14,12 @@ import { handleDecimals } from '../utils/general';
 import { validate } from '../utils/validation';
 import { getContractBalance } from '../utils/tokenValue';
 import { spreadOptions } from '../utils/formBuilder';
+import { daogroniData } from '../utils/chain';
 
 const TributeInput = props => {
   const { submitTransaction } = useTX();
   const { address } = useInjectedProvider();
-  const { daochain, daoid } = useParams();
+  const { daochain, daoid } = daogroniData;
   const { daoOverview } = useDao();
   const { localForm, registerOptions } = props;
   const { setValue, watch } = localForm;
