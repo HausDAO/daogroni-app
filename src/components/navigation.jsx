@@ -21,7 +21,6 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaChevronDown, FaChevronRight } from 'react-icons/fa';
 import { useInjectedProvider } from '../contexts/InjectedProviderContext';
-import { useOverlay } from '../contexts/OverlayContext';
 import AddressAvatar from './addressAvatar';
 import WrongNetworkToolTip from './wrongNetworkToolTip';
 import { chainByID, daogroniData } from '../utils/chain';
@@ -40,14 +39,9 @@ const NAV_ITEMS = [
 const Navigation = ({ isDao }) => {
   const { isOpen, onToggle } = useDisclosure();
   const { address, requestWallet } = useInjectedProvider();
-  const { setHubAccountModal } = useOverlay();
 
-  const { daochain } = daogroniData;
+  const { daoid, daochain } = daogroniData;
   const daoChainName = chainByID(daochain)?.name;
-
-  const toggleAccountModal = () => {
-    setHubAccountModal(prevState => !prevState);
-  };
 
   return (
     <Box>
@@ -59,24 +53,6 @@ const Navigation = ({ isDao }) => {
         borderBottom='1px solid'
         borderColor='secondary.500'
       >
-        <Flex
-          flex={{ base: 1, md: 'auto' }}
-          ml={{ base: -2 }}
-          display={{ base: 'flex', md: 'none' }}
-        >
-          <IconButton
-            onClick={onToggle}
-            icon={
-              isOpen ? (
-                <AiOutlineClose w={3} h={3} />
-              ) : (
-                <GiHamburgerMenu w={5} h={5} />
-              )
-            }
-            variant='ghost'
-            aria-label='Toggle Navigation'
-          />
-        </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Box textAlign={useBreakpointValue({ base: 'center', md: 'left' })}>
             <Text fontSize='2xl' color='tertiary.500'>
@@ -100,7 +76,9 @@ const Navigation = ({ isDao }) => {
         <Link
           mr={5}
           fontSize='sm'
-          href='https://app.daohaus.club/dao/0x64/0xc8e0d7fd13eb3cbc19eb293d0e00b8386cc1b6f2/proposals/149'
+          href={`https://app.daohaus.club/dao/${daochain}/${daoid}`}
+          display={{ base: 'none', md: 'flex' }}
+          isExternal
         >
           Visit the DAO
         </Link>
@@ -108,18 +86,50 @@ const Navigation = ({ isDao }) => {
         {isDao && <WrongNetworkToolTip />}
 
         {address ? (
-          <Button variant='outline' onClick={toggleAccountModal}>
+          <Button
+            variant='outline'
+            border='1px solid'
+            borderRadius='0'
+            borderColor='secondary.500'
+            display={{ base: 'none', md: 'flex' }}
+          >
             <AddressAvatar addr={address} hideCopy />
           </Button>
         ) : (
-          <Button variant='outline' onClick={requestWallet}>
+          <Button
+            variant='outline'
+            border='1px solid'
+            borderRadius='0'
+            borderColor='secondary.500'
+            onClick={requestWallet}
+            display={{ base: 'none', md: 'flex' }}
+          >
             Connect to {daoChainName}
           </Button>
         )}
+
+        <Flex ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
+          <IconButton
+            onClick={onToggle}
+            icon={
+              isOpen ? (
+                <AiOutlineClose w={3} h={3} />
+              ) : (
+                <GiHamburgerMenu w={5} h={5} />
+              )
+            }
+            variant='ghost'
+            aria-label='Toggle Navigation'
+          />
+        </Flex>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
+        <MobileNav
+          address={address}
+          requestWallet={requestWallet}
+          daoChainName={daoChainName}
+        />
       </Collapse>
     </Box>
   );
@@ -213,12 +223,32 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
   );
 };
 
-const MobileNav = () => {
+const MobileNav = ({ address, requestWallet, daoChainName }) => {
   return (
     <Stack bg='primary.500' p={4} display={{ md: 'none' }}>
       {NAV_ITEMS.map(navItem => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
+      {address ? (
+        <Button
+          variant='outline'
+          border='1px solid'
+          borderRadius='0'
+          borderColor='secondary.500'
+        >
+          <AddressAvatar addr={address} hideCopy />
+        </Button>
+      ) : (
+        <Button
+          variant='outline'
+          border='1px solid'
+          borderRadius='0'
+          borderColor='secondary.500'
+          onClick={requestWallet}
+        >
+          Connect to {daoChainName}
+        </Button>
+      )}
     </Stack>
   );
 };

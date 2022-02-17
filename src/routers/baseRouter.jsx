@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 // import Dao from '../pages/Dao';
 import FourOhFour from '../pages/404';
+import MyCocktails from '../pages/MyCocktails';
 
 const BaseRouter = () => {
   return (
@@ -12,15 +13,8 @@ const BaseRouter = () => {
         <Home />
       </Route>
       <Route exact path='/cocktails'>
-        <Home />
+        <MyCocktails />
       </Route>
-
-      {/* <Route
-        path='/dao/:daochain/:daoid'
-        render={routeProps => {
-          return <Dao key={routeProps.match.params.daoid} {...routeProps} />;
-        }}
-      /> */}
       <Route path='*' component={FourOhFour} />
     </Switch>
   );
