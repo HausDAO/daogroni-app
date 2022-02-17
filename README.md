@@ -1,15 +1,8 @@
-# DAOhaus Yeeter V2
+# DAOgroni by DAOhaus 
 
 ---
 
-First version of a Moloch/Daohaus V2 starter repo
-- v2 ui components
-- context/data fetch pattern
-- formbuilder/legos
-
-branch:
-`starter`
-
+Drink responsibly
 ---
 
 ## Development

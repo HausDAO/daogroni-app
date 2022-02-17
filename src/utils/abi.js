@@ -12,6 +12,7 @@ import GNOSIS_IPROXY from '../contracts/iProxy.json';
 import MOLOCH_V2 from '../contracts/molochV2.json';
 import SAFE_MINION from '../contracts/safeMinion.json';
 import SAFE_MULTISEND from '../contracts/safeMultisend.json';
+import NFT_SHAMAN from '../contracts/nftShaman.json';
 
 export const LOCAL_ABI = Object.freeze({
   MOLOCH_V2,
@@ -19,6 +20,7 @@ export const LOCAL_ABI = Object.freeze({
   SAFE_MINION,
   SAFE_MULTISEND,
   GNOSIS_IPROXY,
+  NFT_SHAMAN,
 });
 
 const getBlockExplorerApiKey = chainID => {

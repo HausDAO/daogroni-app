@@ -59,7 +59,7 @@ const Navigation = ({ isDao }) => {
               DAOgroni
             </Text>
             <Text
-              fontSize='sm'
+              fontSize='xs'
               mb={{ base: 8, md: 3 }}
               textTransform='uppercase'
               color='secondary.500'

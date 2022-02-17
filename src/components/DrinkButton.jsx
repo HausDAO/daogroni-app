@@ -1,10 +1,24 @@
-import { Button } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
+import { Button, Spinner } from '@chakra-ui/react';
+
+import { useTX } from '../contexts/TXContext';
+import { TX } from '../data/contractTX';
 
 const DrinkButton = ({ nft }) => {
+  const { submitTransaction } = useTX();
+  const [loading, setLoading] = useState(false);
+
   const handleDrink = async () => {
     console.log('drinking', nft);
+
+    setLoading(true);
+    await submitTransaction({
+      tx: TX.REDEEM_NFT,
+      args: [nft.tokenId],
+    });
+    setLoading(false);
   };
+
   return (
     <Button
       border='1px solid'
@@ -17,7 +31,7 @@ const DrinkButton = ({ nft }) => {
       w={['50%', null, null, '100%', '100%']}
       onClick={handleDrink}
     >
-      Mint
+      {loading ? <Spinner /> : 'Drink'}
     </Button>
   );
 };

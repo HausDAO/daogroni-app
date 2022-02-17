@@ -16,6 +16,11 @@ export const CONTRACTS = {
     abiName: 'ERC_20',
     contractAddress: '.values.tokenAddress',
   },
+  NFT_SHAMAN: {
+    location: 'local',
+    abiName: 'NFT_SHAMAN',
+    contractAddress: '.contextData.chainConfig.daogroniShaman',
+  },
 };
 
 export const ACTIONS = {
@@ -40,6 +45,27 @@ export const DETAILS = {
 };
 
 export const TX = {
+  MINT_NFT: {
+    contract: CONTRACTS.NFT_SHAMAN,
+    name: 'orderDrink',
+    // TODO custom poll - unless setshaman gets it?
+    poll: 'subgraph',
+    onTxHash: ACTIONS.BASIC,
+    valueWei: '3000000000000000000',
+    display: 'Ordering drink',
+    errMsg: 'Error Ordering drink',
+    successMsg: 'Drink responsibly!',
+  },
+  REDEEM_NFT: {
+    contract: CONTRACTS.NFT_SHAMAN,
+    name: 'redeem',
+    // TODO custom poll - unless setshaman gets it?
+    poll: 'subgraph',
+    onTxHash: ACTIONS.BASIC,
+    display: 'Bottoms up!',
+    errMsg: 'You spilled!',
+    successMsg: 'Your glass is empty!',
+  },
   SUBMIT_PROPOSAL: {
     contract: CONTRACTS.CURRENT_MOLOCH,
     name: 'submitProposal',

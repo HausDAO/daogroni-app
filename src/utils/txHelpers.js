@@ -304,7 +304,15 @@ export const getContractAddress = data => {
   );
 };
 export const Transaction = async data => {
-  const { args, tx, poll, onTxHash, contextData, injectedProvider } = data;
+  const {
+    args,
+    tx,
+    poll,
+    onTxHash,
+    contextData,
+    injectedProvider,
+    valueWei,
+  } = data;
 
   const web3Contract = await createContract({
     address: getContractAddress(data),
@@ -315,8 +323,13 @@ export const Transaction = async data => {
   const transaction = await web3Contract.methods[tx.name](...args);
   data.lifeCycleFns?.onTxFire?.(data);
 
+  // TODO add value
+
   return transaction
-    .send('eth_requestAccounts', { from: contextData.address })
+    .send('eth_requestAccounts', {
+      from: contextData.address,
+      value: valueWei || 0,
+    })
     .on('transactionHash', txHash => {
       poll?.(txHash, data);
       onTxHash?.(txHash, data);

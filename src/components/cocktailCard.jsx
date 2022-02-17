@@ -16,7 +16,10 @@ const CocktailCard = ({ nft }) => {
     >
       <Flex>
         <Box color='black' w='100%'>
-          <Image w={['100%', null, null, '100%', '100%']} src={nft.image} />
+          <Image
+            w={['100%', null, null, '100%', '100%']}
+            src={nft.redeemed ? nft.redeemedImage : nft.image}
+          />
           <Text fontSize='xl' mt={2} fontWeight='700'>
             {nft.title}
           </Text>

@@ -3,17 +3,38 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 
 import Layout from '../components/layout';
 import CocktailList from '../components/cocktailList';
-import { tempMyCocktails } from '../utils/nftContent';
+import { nftContent } from '../utils/nftContent';
 import { useInjectedProvider } from '../contexts/InjectedProviderContext';
+import { createContract } from '../utils/contract';
+import { daogroniData, supportedChains } from '../utils/chain';
+import { LOCAL_ABI } from '../utils/abi';
 
 const MyCocktails = () => {
   const { address } = useInjectedProvider();
   const [nfts, setNfts] = useState(null);
   const [lootTotal, setLootTotal] = useState(0);
+  const { daochain } = daogroniData;
 
   useEffect(() => {
     const fetchUserNfts = async () => {
-      setNfts(tempMyCocktails);
+      const shamanContract = createContract({
+        address: supportedChains[daochain].daogroniShaman,
+        abi: LOCAL_ABI.ERC_20,
+        chainID: daochain,
+      });
+
+      console.log('shamanContract', shamanContract);
+
+      /// shamanContract call to get data for address
+      // uris and stuff
+      // hydrate nft objects
+
+      const myStuff = [
+        { ...nftContent[0], redeemed: true, inWallet: true },
+        { ...nftContent[3], inWallet: true },
+      ];
+
+      setNfts(myStuff);
       setLootTotal(100);
     };
 
