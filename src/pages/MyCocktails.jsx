@@ -15,6 +15,7 @@ const MyCocktails = () => {
   const [lootTotal, setLootTotal] = useState(0);
   const { daochain } = daogroniData;
 
+  // TODO: move into a context so it loads once; add refresh to trigger after mint/redeem
   useEffect(() => {
     const fetchUserNfts = async () => {
       const shamanContract = createContract({
@@ -23,11 +24,31 @@ const MyCocktails = () => {
         chainID: daochain,
       });
 
-      console.log('shamanContract', shamanContract);
+      // console.log('shamanContract', shamanContract);
+      // const tokenCount = shamanContract.methods.balanceOf(address).call();
 
-      /// shamanContract call to get data for address
-      // uris and stuff
-      // hydrate nft objects
+      // if (tokenCount > 0) {
+      //   /// shamanContract call to get data for address
+      //   // uris and stuff
+      //   // hydrate nft objects
+
+      //   const tokenIds = [];
+      //   for (let step = 0; step < Number(tokenCount); step = +1) {
+      //     const tokenId = shamanContract.methods
+      //       .tokenOfOwnerByIndex(address, step)
+      //       .call();
+      //     tokenIds.push(tokenId);
+      //     // how to get the orderId and if redeemed
+      //   }
+
+      //   const myStuff = [
+      //     { ...nftContent[0], redeemed: true, inWallet: true },
+      //     { ...nftContent[3], inWallet: true },
+      //   ];
+
+      //   setNfts(myStuff);
+      //   setLootTotal(100);
+      // }
 
       const myStuff = [
         { ...nftContent[0], redeemed: true, inWallet: true },
