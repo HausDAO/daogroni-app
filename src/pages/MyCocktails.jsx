@@ -24,6 +24,8 @@ const MyCocktails = () => {
         chainID: daochain,
       });
 
+      console.log('shamanContract', shamanContract);
+
       // console.log('shamanContract', shamanContract);
       // const tokenCount = shamanContract.methods.balanceOf(address).call();
 
