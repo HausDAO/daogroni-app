@@ -45,24 +45,21 @@ const MyCocktails = () => {
         const hydratedTokens = await Promise.all(
           tokens.tokenRegistry.tokens.map(async token => {
             console.log('token', token);
-            const res = await fetch(token.uri);
+            const tokenUri = await shamanContract.methods
+              .tokenURI(token.identifier)
+              .call();
+            const res = await fetch(tokenUri);
             const res2 = await res.json();
 
-            const redeemed = await shamanContract.methods
-              .redeems(token.identifier)
-              .call();
-
-            console.log('redeemed', redeemed);
-
             console.log('res2', res2);
+            console.log('tokenUri', tokenUri);
 
             return {
               ...nftContent.find(nft => nft.orderId === res2.orderId),
               inWallet: true,
               ...token,
               ...res2,
-              // redeemed: res2.redeemed === '1',
-              redeemed,
+              redeemed: res2.redeemed === '1',
             };
           }),
         );
