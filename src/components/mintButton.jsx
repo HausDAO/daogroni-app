@@ -10,8 +10,6 @@ const MintButton = ({ nft }) => {
   const { address } = useInjectedProvider();
   const [loading, setLoading] = useState(false);
   const handleMint = async () => {
-    console.log('minting', nft);
-
     setLoading(true);
     await submitTransaction({
       tx: TX.MINT_NFT,

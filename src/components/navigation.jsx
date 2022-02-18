@@ -58,12 +58,7 @@ const Navigation = ({ isDao }) => {
             <Text fontSize='2xl' color='tertiary.500'>
               DAOgroni
             </Text>
-            <Text
-              fontSize='xs'
-              mb={{ base: 8, md: 3 }}
-              textTransform='uppercase'
-              color='secondary.500'
-            >
+            <Text fontSize='xs' textTransform='uppercase' color='secondary.500'>
               by DAOhaus
             </Text>
           </Box>
@@ -119,6 +114,8 @@ const Navigation = ({ isDao }) => {
               )
             }
             variant='ghost'
+            color='secondary.500'
+            fontSize='2xl'
             aria-label='Toggle Navigation'
           />
         </Flex>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import MintButton from './mintButton';
 import DrinkButton from './DrinkButton';
+import { nftPrice } from '../utils/nftContent';
 
 const CocktailCard = ({ nft }) => {
   return (
@@ -16,10 +17,14 @@ const CocktailCard = ({ nft }) => {
     >
       <Flex>
         <Box color='black' w='100%'>
-          <Image
+          {/* <Image
             w={['100%', null, null, '100%', '100%']}
             src={nft.redeemed ? nft.redeemedImage : nft.image}
-          />
+          /> */}
+
+          <Image w={['100%', null, null, '100%', '100%']} src={nft.image} />
+          {/* <embed src={nft.image} w='800px' /> */}
+
           <Text fontSize='xl' mt={2} fontWeight='700'>
             {nft.title}
           </Text>
@@ -30,7 +35,7 @@ const CocktailCard = ({ nft }) => {
           ))}
           <Box fontSize='md'>{nft.garnish}</Box>
           <Box fontSize='md' mt={3}>
-            Price: .1 ETH
+            Price: {`${nftPrice.display} ${nftPrice.symbol}`}
           </Box>
         </Box>
       </Flex>
