@@ -14,7 +14,7 @@ const DrinkButton = ({ nft }) => {
     setLoading(true);
     await submitTransaction({
       tx: TX.REDEEM_NFT,
-      args: [nft.tokenId],
+      args: [nft.identifier],
     });
     setLoading(false);
   };

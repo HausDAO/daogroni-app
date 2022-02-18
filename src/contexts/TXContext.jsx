@@ -137,6 +137,7 @@ export const TXProvider = ({ children }) => {
       injectedProvider,
       now,
     };
+
     const onTxHash = createActions({
       tx: data.tx,
       uiControl,

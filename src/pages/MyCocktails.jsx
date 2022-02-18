@@ -5,8 +5,14 @@ import Layout from '../components/layout';
 import CocktailList from '../components/cocktailList';
 import { nftContent } from '../utils/nftContent';
 import { useInjectedProvider } from '../contexts/InjectedProviderContext';
+import {
+  daogroniData,
+  getGraphEndpoint,
+  supportedChains,
+} from '../utils/chain';
+import { graphQuery } from '../utils/apollo';
+import { USER_NFTS } from '../graphQL/daogroni';
 import { createContract } from '../utils/contract';
-import { daogroniData, supportedChains } from '../utils/chain';
 import { LOCAL_ABI } from '../utils/abi';
 
 const MyCocktails = () => {
@@ -15,50 +21,64 @@ const MyCocktails = () => {
   const [lootTotal, setLootTotal] = useState(0);
   const { daochain } = daogroniData;
 
-  // TODO: move into a context so it loads once; add refresh to trigger after mint/redeem
   useEffect(() => {
     const fetchUserNfts = async () => {
-      const shamanContract = createContract({
-        address: supportedChains[daochain].daogroniShaman,
-        abi: LOCAL_ABI.ERC_20,
-        chainID: daochain,
-      });
+      try {
+        const tokens = await graphQuery({
+          endpoint: getGraphEndpoint(daochain, 'erc721_graph_url'),
+          query: USER_NFTS,
+          variables: {
+            tokenAddress: supportedChains[
+              daochain
+            ].daogroniShaman.toLowerCase(),
+            memberAddress: address,
+          },
+        });
+        const shamanContract = createContract({
+          address: supportedChains[daochain].daogroniShaman,
+          abi: LOCAL_ABI.NFT_SHAMAN,
+          chainID: daochain,
+        });
 
-      console.log('shamanContract', shamanContract);
+        console.log('tokens', tokens);
 
-      // console.log('shamanContract', shamanContract);
-      // const tokenCount = shamanContract.methods.balanceOf(address).call();
+        const hydratedTokens = await Promise.all(
+          tokens.tokenRegistry.tokens.map(async token => {
+            console.log('token', token);
+            const tokenUri = await shamanContract.methods
+              .tokenURI(token.identifier)
+              .call();
+            const res = await fetch(tokenUri);
+            const res2 = await res.json();
 
-      // if (tokenCount > 0) {
-      //   /// shamanContract call to get data for address
-      //   // uris and stuff
-      //   // hydrate nft objects
+            console.log('res2', res2);
+            console.log('tokenUri', tokenUri);
 
-      //   const tokenIds = [];
-      //   for (let step = 0; step < Number(tokenCount); step = +1) {
-      //     const tokenId = shamanContract.methods
-      //       .tokenOfOwnerByIndex(address, step)
-      //       .call();
-      //     tokenIds.push(tokenId);
-      //     // how to get the orderId and if redeemed
-      //   }
+            return {
+              ...nftContent.find(nft => nft.orderId === res2.orderId),
+              inWallet: true,
+              ...token,
+              ...res2,
+              redeemed: res2.redeemed === '1',
+            };
+          }),
+        );
 
-      //   const myStuff = [
-      //     { ...nftContent[0], redeemed: true, inWallet: true },
-      //     { ...nftContent[3], inWallet: true },
-      //   ];
+        console.log('hydratedTokens', hydratedTokens);
 
-      //   setNfts(myStuff);
-      //   setLootTotal(100);
-      // }
+        const lootTotal = hydratedTokens.reduce((sum, token) => {
+          if (token.redeemed) {
+            sum += 100;
+          }
 
-      const myStuff = [
-        { ...nftContent[0], redeemed: true, inWallet: true },
-        { ...nftContent[3], inWallet: true },
-      ];
+          return sum;
+        }, 0);
 
-      setNfts(myStuff);
-      setLootTotal(100);
+        setNfts(hydratedTokens);
+        setLootTotal(lootTotal);
+      } catch (err) {
+        console.log('fetch error', err);
+      }
     };
 
     if (address) {
@@ -66,7 +86,6 @@ const MyCocktails = () => {
     }
   }, [address]);
 
-  // useeffect to grab users nfts
   return (
     <Layout isDao>
       <Box p={{ base: 6, md: 10 }}>

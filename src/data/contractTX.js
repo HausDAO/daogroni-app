@@ -1,4 +1,5 @@
 import { HASH } from '../utils/general';
+import { nftPrice } from '../utils/nftContent';
 
 export const CONTRACTS = {
   CURRENT_MOLOCH: {
@@ -51,7 +52,7 @@ export const TX = {
     // TODO custom poll - unless setshaman gets it?
     poll: 'subgraph',
     onTxHash: ACTIONS.BASIC,
-    valueWei: '3000000000000000000',
+    valueWei: nftPrice.wei,
     display: 'Ordering drink',
     errMsg: 'Error Ordering drink',
     successMsg: 'Drink responsibly!',

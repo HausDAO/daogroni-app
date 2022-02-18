@@ -1,7 +1,7 @@
 export const nftContent = [
   {
     title: 'Negroni',
-    orderId: 0,
+    orderId: '3',
     ingredients: ['1 ounce gin', '1 ounce Campari', '1 ounce sweet vermouth'],
     garnish: 'Orange wedge',
     image:
@@ -11,6 +11,7 @@ export const nftContent = [
   },
   {
     title: 'Boulevardier',
+    orderId: '0',
     ingredients: [
       '1 1/4 ounces bourbon',
       '1 ounce Campari',
@@ -24,6 +25,7 @@ export const nftContent = [
   },
   {
     title: 'Bermuda Hundred',
+    orderId: '1',
     ingredients: [
       '1 1/2 ounces gin',
       '1 1/2 ounces pineapple juice',
@@ -38,7 +40,8 @@ export const nftContent = [
       'https://daohaus.mypinata.cloud/ipfs/QmaCBoYHdQ9u7zwp1Sxxaig1yfuocTLzk9iAr1m1ahukBK/daogroni-BermudaHundred-empty.svg',
   },
   {
-    title: 'Manhatten',
+    title: 'Manhattan',
+    orderId: '2',
     ingredients: [
       '2 ounce rye',
       '1 sweet vermouth',
@@ -53,6 +56,7 @@ export const nftContent = [
   },
   {
     title: 'White Negroni',
+    orderId: '4',
     ingredients: [
       '1 1/2 ounces gin',
       '1 ounce Lillet blanc',
@@ -65,6 +69,12 @@ export const nftContent = [
       'https://daohaus.mypinata.cloud/ipfs/QmaCBoYHdQ9u7zwp1Sxxaig1yfuocTLzk9iAr1m1ahukBK/daogroni-whtnegroni-empty.svg',
   },
 ];
+
+export const nftPrice = {
+  wei: '300000000000000000',
+  display: '.3',
+  symbol: 'ETH',
+};
 
 // - Negroni
 // - Boulevardier
