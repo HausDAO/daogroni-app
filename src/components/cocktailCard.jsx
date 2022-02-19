@@ -1,10 +1,16 @@
 import React from 'react';
-import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Image, Text, Link } from '@chakra-ui/react';
+
+import { useInjectedProvider } from '../contexts/InjectedProviderContext';
 import MintButton from './mintButton';
 import DrinkButton from './DrinkButton';
 import { nftPrice } from '../utils/nftContent';
+import { daogroniData } from '../utils/chain';
 
 const CocktailCard = ({ nft }) => {
+  const { address } = useInjectedProvider();
+  const { daoid, daochain } = daogroniData;
+
   return (
     <Box
       w={['100%', null, null, '30%', '30%']}
@@ -44,20 +50,32 @@ const CocktailCard = ({ nft }) => {
       {nft.inWallet && !nft.redeemed && <DrinkButton nft={nft} />}
 
       {nft.inWallet && nft.redeemed && (
-        <Button
-          border='1px solid'
-          borderRadius='0'
-          borderColor='secondary.500'
-          backgroundColor='primary.500'
-          color='secondary.500'
-          mt={5}
-          textTransform='uppercase'
-          w={['50%', null, null, '100%', '100%']}
-          _hover={{ cursor: 'pointer', backgroundColor: 'primary.500' }}
-          disabled
-        >
-          Empty - 100 Loot
-        </Button>
+        <>
+          <Button
+            border='1px solid'
+            borderRadius='0'
+            borderColor='secondary.500'
+            backgroundColor='primary.500'
+            color='secondary.500'
+            mt={5}
+            textTransform='uppercase'
+            w={['50%', null, null, '100%', '100%']}
+            _hover={{ cursor: 'pointer', backgroundColor: 'primary.500' }}
+            disabled
+          >
+            Empty - 100 Loot
+          </Button>
+          <Link
+            mr={5}
+            mt={2}
+            fontSize='xs'
+            href={`https://app.daohaus.club/dao/${daochain}/${daoid}/profile/${address}`}
+            display={{ base: 'none', md: 'flex' }}
+            isExternal
+          >
+            Manage your loot in the DAO
+          </Link>
+        </>
       )}
     </Box>
   );
