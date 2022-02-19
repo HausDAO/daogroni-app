@@ -34,6 +34,10 @@ const NAV_ITEMS = [
     label: 'My Cocktails',
     href: '/cocktails',
   },
+  {
+    label: 'About',
+    href: '/about',
+  },
 ];
 
 const Navigation = ({ isDao }) => {

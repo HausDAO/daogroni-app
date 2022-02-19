@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 // import Dao from '../pages/Dao';
 import FourOhFour from '../pages/404';
 import MyCocktails from '../pages/MyCocktails';
+import About from '../pages/About';
 
 const BaseRouter = () => {
   return (
@@ -14,6 +15,9 @@ const BaseRouter = () => {
       </Route>
       <Route exact path='/cocktails'>
         <MyCocktails />
+      </Route>
+      <Route exact path='/about'>
+        <About />
       </Route>
       <Route path='*' component={FourOhFour} />
     </Switch>
