@@ -56,7 +56,7 @@ const Navigation = ({ isDao }) => {
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
           <Box textAlign={useBreakpointValue({ base: 'center', md: 'left' })}>
             <Text fontSize='2xl' color='tertiary.500'>
-              DAOgroni
+              Daogroni
             </Text>
             <Text fontSize='xs' textTransform='uppercase' color='secondary.500'>
               by DAOhaus

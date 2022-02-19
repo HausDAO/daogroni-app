@@ -19,7 +19,6 @@ export const DaoProvider = ({ children }) => {
   const daoNetworkData = supportedChains[daochain];
 
   const [daoOverview, setDaoOverview] = useState();
-  const [daoProposals, setDaoProposals] = useState();
 
   const hasPerformedBatchQuery = useRef(false);
   const currentDao = useRef(null);
@@ -27,7 +26,7 @@ export const DaoProvider = ({ children }) => {
   useEffect(() => {
     // This condition is brittle. If one request passes, but the rest fail
     // this stops the app from fetching. We'll need something better later on.
-    if (daoOverview || daoProposals) {
+    if (daoOverview) {
       return;
     }
     if (
@@ -46,13 +45,7 @@ export const DaoProvider = ({ children }) => {
         daoID: daoid.toLowerCase(),
         chainID: daochain,
       },
-      getSetters: [
-        { getter: 'getOverview', setter: setDaoOverview },
-        {
-          getter: 'getProposals',
-          setter: setDaoProposals,
-        },
-      ],
+      getSetters: [{ getter: 'getOverview', setter: setDaoOverview }],
     };
 
     bigGraphQuery(bigQueryOptions);
@@ -65,13 +58,7 @@ export const DaoProvider = ({ children }) => {
         daoID: daoid.toLowerCase(),
         chainID: daochain,
       },
-      getSetters: [
-        { getter: 'getOverview', setter: setDaoOverview },
-        {
-          getter: 'getProposals',
-          setter: setDaoProposals,
-        },
-      ],
+      getSetters: [{ getter: 'getOverview', setter: setDaoOverview }],
     };
     currentDao.current = null;
     bigGraphQuery(bigQueryOptions);
@@ -85,7 +72,6 @@ export const DaoProvider = ({ children }) => {
   return (
     <DaoContext.Provider
       value={{
-        daoProposals,
         daoOverview,
         refetch,
         refreshAllDaoVaults,
@@ -98,13 +84,11 @@ export const DaoProvider = ({ children }) => {
 };
 export const useDao = () => {
   const {
-    daoProposals,
     daoOverview,
     refetch,
     hasPerformedBatchQuery, // Ref, not state
   } = useContext(DaoContext);
   return {
-    daoProposals,
     daoOverview,
     refetch,
     hasPerformedBatchQuery,
