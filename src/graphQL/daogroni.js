@@ -5,7 +5,6 @@ export const USER_NFTS = gql`
     tokenRegistry(id: $tokenAddress) {
       id
       tokens(where: { owner: $memberAddress }) {
-        uri
         identifier
         owner {
           id

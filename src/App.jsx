@@ -1,5 +1,6 @@
 import React from 'react';
 import { DaoProvider } from './contexts/DaoContext';
+import { MyCocktailsProvider } from './contexts/MyCocktailsContext';
 import { TxPollContextProvider } from './contexts/TxPollContext';
 
 import TxInfoModal from './modals/TxInfoModal';
@@ -10,7 +11,9 @@ function App() {
     <TxPollContextProvider>
       <TxInfoModal />
       <DaoProvider>
-        <BaseRouter />
+        <MyCocktailsProvider>
+          <BaseRouter />
+        </MyCocktailsProvider>
       </DaoProvider>
     </TxPollContextProvider>
   );
