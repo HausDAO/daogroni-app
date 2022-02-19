@@ -1,11 +1,42 @@
-import React from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { Box, Text, Flex } from '@chakra-ui/react';
 
 import Layout from '../components/layout';
 import CocktailList from '../components/cocktailList';
 import { nftContent } from '../utils/nftContent';
+import {
+  daogroniData,
+  getGraphEndpoint,
+  supportedChains,
+} from '../utils/chain';
+import { TOTAL_NFTS } from '../graphQL/daogroni';
+import { graphQuery } from '../utils/apollo';
 
 const Home = () => {
+  const { daochain } = daogroniData;
+  const [totalSold, setTotalSold] = useState(0);
+
+  useEffect(() => {
+    const setup = async () => {
+      const tokens = await graphQuery({
+        endpoint: getGraphEndpoint(daochain, 'erc721_graph_url'),
+        query: TOTAL_NFTS,
+        variables: {
+          tokenAddress: supportedChains[daochain].daogroniShaman.toLowerCase(),
+        },
+      });
+      console.log('tokens', tokens);
+
+      if (tokens?.tokenRegistry) {
+        setTotalSold(tokens?.tokenRegistry.tokens.length);
+      }
+    };
+
+    if (daochain) {
+      setup();
+    }
+  }, [daochain]);
+
   return (
     <Layout isDao>
       <Box p={{ base: 6, md: 10 }}>
@@ -68,9 +99,12 @@ const Home = () => {
             </Text>
           </Box>
         </Box>
-        <Text color='tertiary.500' fontSize='2xl'>
-          Menu
-        </Text>
+        <Flex justify='space-between' alignItems='flex-end'>
+          <Text color='tertiary.500' fontSize='2xl'>
+            Menu
+          </Text>
+          <Text color='tertiary.500'>Total sold: {totalSold} of 200</Text>
+        </Flex>
         <CocktailList nfts={nftContent} />
       </Box>
     </Layout>

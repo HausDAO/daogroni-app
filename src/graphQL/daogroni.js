@@ -13,3 +13,14 @@ export const USER_NFTS = gql`
     }
   }
 `;
+
+export const TOTAL_NFTS = gql`
+  query tokens($tokenAddress: String!) {
+    tokenRegistry(id: $tokenAddress) {
+      id
+      tokens {
+        identifier
+      }
+    }
+  }
+`;
