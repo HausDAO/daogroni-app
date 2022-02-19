@@ -1,5 +1,5 @@
 export const daogroniData = {
-  daoid: '0xdef071af3faa9c57deba0d9d9859af99aa05d783',
+  daoid: '0x9422bace441461b8d3dc31d5d64afade371ff95a',
   daochain: '0x4',
 };
 
@@ -106,7 +106,7 @@ export const supportedChains = {
     dao_conditional_helper_addr: '0xc50462aEa8873f6343a2Fd2103aE1dD21d53bC27',
     escrow_minion: '0xEB28321b7952CC34bFb734413b58496A889C9660',
     disperse_app: '0xD152f549545093347A162Dce210e7293f1452150',
-    daogroniShaman: '0x0c43534d4c201d6500cbb21a00f5e7842237ce53',
+    daogroniShaman: '0x898fc00771c148257a7edbdad33c1469f4420740',
   },
   // '0x2a': {
   //   name: 'Ethereum Kovan',
