@@ -22,9 +22,10 @@ export const fetchUserNfts = async ({ daochain, address }) => {
     });
 
     console.log('tokens', tokens);
+    const tokensAry = tokens.tokenRegistry ? tokens.tokenRegistry.tokens : [];
 
     const hydratedTokens = await Promise.all(
-      tokens.tokenRegistry.tokens.map(async token => {
+      tokensAry.map(async token => {
         console.log('token', token);
         const tokenUri = await shamanContract.methods
           .tokenURI(token.identifier)
