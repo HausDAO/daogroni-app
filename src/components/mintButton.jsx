@@ -4,10 +4,13 @@ import { Button, Spinner } from '@chakra-ui/react';
 import { useTX } from '../contexts/TXContext';
 import { useInjectedProvider } from '../contexts/InjectedProviderContext';
 import { TX } from '../data/contractTX';
+import { useMyCocktails } from '../contexts/MyCocktailsContext';
 
 const MintButton = ({ nft }) => {
   const { submitTransaction } = useTX();
   const { address } = useInjectedProvider();
+  const { refetch } = useMyCocktails();
+
   const [loading, setLoading] = useState(false);
   const handleMint = async () => {
     setLoading(true);
@@ -15,6 +18,7 @@ const MintButton = ({ nft }) => {
       tx: TX.MINT_NFT,
       args: [address, nft.orderId],
     });
+    refetch();
     setLoading(false);
   };
 
