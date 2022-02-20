@@ -1,4 +1,6 @@
 export const daogroniData = {
+  // daoid: '0xcc6a847d7df52ae1904d21781ab34ea61d6f3a1c',
+  // daochain: '0x64',
   daoid: '0x9422bace441461b8d3dc31d5d64afade371ff95a',
   daochain: '0x4',
 };
@@ -201,6 +203,7 @@ export const supportedChains = {
   //     version: 'v1',
   //   },
   //   disperse_app: '0xD152f549545093347A162Dce210e7293f1452150',
+  //   daogroniShaman: '0x1d0f5d1f5e1fb74a86c19309368d434e9f7bb608',
   // },
   // '0x89': {
   //   name: 'Matic',

@@ -3,7 +3,7 @@ import { Box, Text, Flex } from '@chakra-ui/react';
 
 import Layout from '../components/layout';
 import CocktailList from '../components/cocktailList';
-import { nftContent } from '../utils/nftContent';
+import { nftContent, nftPrice } from '../utils/nftContent';
 import {
   daogroniData,
   getGraphEndpoint,
@@ -81,8 +81,9 @@ const Home = () => {
             </Text>
             <Text color='secondary.500' mb={2}>
               1. Order a drink! Choose a cocktail for yourself, or buy a round
-              for your friends. Cocktails cost ==X==, and alp proceeds from NFT
-              cocktail sales go straight into the DAO treasury.
+              for your friends. Cocktails cost {nftPrice.display}{' '}
+              {nftPrice.symbol}, and all proceeds from NFT cocktail sales go
+              straight into the DAO treasury.
             </Text>
             <Text color='secondary.500' mb={2}>
               2. Demonstrate your love of cocktails by drinking your drink.
