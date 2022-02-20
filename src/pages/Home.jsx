@@ -3,13 +3,11 @@ import { Box, Text, Flex } from '@chakra-ui/react';
 
 import Layout from '../components/layout';
 import CocktailList from '../components/cocktailList';
-import { nftContent, nftPrice } from '../utils/nftContent';
-import {
-  daogroniData,
-  getGraphEndpoint,
-  supportedChains,
-} from '../utils/chain';
-import { TOTAL_NFTS } from '../graphQL/daogroni';
+import { nftContent } from '../utils/nftContent';
+import { daogroniData, getGraphEndpoint } from '../utils/chain';
+// import { TOTAL_NFTS } from '../graphQL/daogroni';
+import { TOTAL_NFTS_NEW } from '../graphQL/daogroni';
+
 import { graphQuery } from '../utils/apollo';
 
 const Home = () => {
@@ -19,16 +17,18 @@ const Home = () => {
   useEffect(() => {
     const setup = async () => {
       const tokens = await graphQuery({
-        endpoint: getGraphEndpoint(daochain, 'erc721_graph_url'),
-        query: TOTAL_NFTS,
-        variables: {
-          tokenAddress: supportedChains[daochain].daogroniShaman.toLowerCase(),
-        },
+        // endpoint: getGraphEndpoint(daochain, 'erc721_graph_url'),
+        // query: TOTAL_NFTS,
+        endpoint: getGraphEndpoint(daochain, 'daogroni_subgraph'),
+        query: TOTAL_NFTS_NEW,
+        // variables: {
+        //   tokenAddress: supportedChains[daochain].daogroniShaman.toLowerCase(),
+        // },
       });
       console.log('tokens', tokens);
 
-      if (tokens?.tokenRegistry) {
-        setTotalSold(tokens?.tokenRegistry.tokens.length);
+      if (tokens?.tokens) {
+        setTotalSold(tokens.tokens.length);
       }
     };
 
@@ -81,8 +81,8 @@ const Home = () => {
             </Text>
             <Text color='secondary.500' mb={2}>
               1. Order a drink! Choose a cocktail for yourself, or buy a round
-              for your friends. Cocktails cost {nftPrice.display}{' '}
-              {nftPrice.symbol}, and all proceeds from NFT cocktail sales go
+              for your friends. Cocktails cost {daogroniData.display}{' '}
+              {daogroniData.symbol}, and all proceeds from NFT cocktail sales go
               straight into the DAO treasury.
             </Text>
             <Text color='secondary.500' mb={2}>

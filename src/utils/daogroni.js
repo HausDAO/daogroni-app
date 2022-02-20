@@ -1,4 +1,5 @@
-import { USER_NFTS } from '../graphQL/daogroni';
+// import { USER_NFTS } from '../graphQL/daogroni';
+import { USER_NFTS_NEW } from '../graphQL/daogroni';
 import { LOCAL_ABI } from './abi';
 import { graphQuery } from './apollo';
 import { getGraphEndpoint, supportedChains } from './chain';
@@ -8,10 +9,12 @@ import { nftContent } from './nftContent';
 export const fetchUserNfts = async ({ daochain, address }) => {
   try {
     const tokens = await graphQuery({
-      endpoint: getGraphEndpoint(daochain, 'erc721_graph_url'),
-      query: USER_NFTS,
+      // endpoint: getGraphEndpoint(daochain, 'erc721_graph_url'),
+      // query: USER_NFTS,
+      endpoint: getGraphEndpoint(daochain, 'daogroni_subgraph'),
+      query: USER_NFTS_NEW,
       variables: {
-        tokenAddress: supportedChains[daochain].daogroniShaman.toLowerCase(),
+        // tokenAddress: supportedChains[daochain].daogroniShaman.toLowerCase(),
         memberAddress: address,
       },
     });
@@ -22,13 +25,14 @@ export const fetchUserNfts = async ({ daochain, address }) => {
     });
 
     console.log('tokens', tokens);
-    const tokensAry = tokens.tokenRegistry ? tokens.tokenRegistry.tokens : [];
+    // const tokensAry = tokens.tokenRegistry ? tokens.tokenRegistry.tokens : [];
+    const tokensAry = tokens?.tokens ? tokens.tokens : [];
 
     const hydratedTokens = await Promise.all(
       tokensAry.map(async token => {
         console.log('token', token);
         const tokenUri = await shamanContract.methods
-          .tokenURI(token.identifier)
+          .tokenURI(token.tokenId)
           .call();
         const res = await fetch(tokenUri);
         const res2 = await res.json();

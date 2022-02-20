@@ -14,6 +14,16 @@ export const USER_NFTS = gql`
   }
 `;
 
+export const USER_NFTS_NEW = gql`
+  query tokens($memberAddress: String!) {
+    tokens(where: { account: $memberAddress }) {
+      id
+      tokenId
+      account
+    }
+  }
+`;
+
 export const TOTAL_NFTS = gql`
   query tokens($tokenAddress: String!) {
     tokenRegistry(id: $tokenAddress) {
@@ -21,6 +31,16 @@ export const TOTAL_NFTS = gql`
       tokens {
         identifier
       }
+    }
+  }
+`;
+
+export const TOTAL_NFTS_NEW = gql`
+  query tokens {
+    tokens(first: 201) {
+      id
+      tokenId
+      account
     }
   }
 `;

@@ -1,5 +1,5 @@
+import { daogroniData } from '../utils/chain';
 import { HASH } from '../utils/general';
-import { nftPrice } from '../utils/nftContent';
 
 export const CONTRACTS = {
   CURRENT_MOLOCH: {
@@ -52,7 +52,7 @@ export const TX = {
     // TODO custom poll - unless setshaman gets it?
     poll: 'subgraph',
     onTxHash: ACTIONS.BASIC,
-    valueWei: nftPrice.wei,
+    valueWei: daogroniData.wei,
     display: 'Ordering drink',
     errMsg: 'Error Ordering drink',
     successMsg: 'Drink responsibly!',

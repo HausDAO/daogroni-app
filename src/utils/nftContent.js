@@ -70,15 +70,14 @@ export const nftContent = [
   },
 ];
 
-export const nftPrice = {
-  wei: '300000000000000000',
-  display: '.3',
-  symbol: 'ETH',
-
-  // wei: '200000000000000000000',
-  // display: '200',
-  // symbol: 'XDAI',
-};
+// export const nftPrice = {
+//   // wei: '300000000000000000',
+//   // display: '.3',
+//   // symbol: 'ETH',
+//   wei: '200000000000000000000',
+//   display: '200',
+//   symbol: 'XDAI',
+// };
 
 // - Negroni
 // - Boulevardier
