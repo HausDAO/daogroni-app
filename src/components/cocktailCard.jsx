@@ -4,7 +4,6 @@ import { Box, Button, Flex, Image, Text, Link } from '@chakra-ui/react';
 import { useInjectedProvider } from '../contexts/InjectedProviderContext';
 import MintButton from './mintButton';
 import DrinkButton from './DrinkButton';
-import { nftPrice } from '../utils/nftContent';
 import { daogroniData } from '../utils/chain';
 
 const CocktailCard = ({ nft }) => {
@@ -41,7 +40,7 @@ const CocktailCard = ({ nft }) => {
           ))}
           <Box fontSize='md'>{nft.garnish}</Box>
           <Box fontSize='md' mt={3}>
-            Price: {`${nftPrice.display} ${nftPrice.symbol}`}
+            Price: {`${daogroniData.display} ${daogroniData.symbol}`}
           </Box>
         </Box>
       </Flex>
