@@ -12,7 +12,7 @@ const Story = () => {
       </Text>
       <Text mb={3}>
         I had a feeling he’d be here. He doesn’t usually show up for concerts in
-        the metaverse, but this one was blue grass or appalachian. I’m not
+        the metaverse, but this one was bluegrass or appalachian. I’m not
         exactly sure, which is embarrassing, but I brought a couple DAOgroni
         drinks and maybe it’s easier to get to know someone when the music
         reaches deep in ourselves.
