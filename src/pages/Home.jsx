@@ -48,7 +48,7 @@ const Home = () => {
         title: 'A DAOgroni Story',
         subtitle: 'Buy You a Drink',
         body: <Story />,
-        width: '90%',
+        width: '50%',
       });
     }
   }, [daochain, location]);
@@ -58,7 +58,7 @@ const Home = () => {
       title: 'A DAOgroni Story',
       subtitle: 'Buy You a Drink',
       body: <Story />,
-      width: '90%',
+      width: '50%',
     });
   };
 
