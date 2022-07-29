@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Box, Text, Flex } from '@chakra-ui/react';
+import { useLocation } from 'react-router-dom';
 
 import Layout from '../components/layout';
 import CocktailList from '../components/cocktailList';
@@ -9,12 +10,19 @@ import { daogroniData, getGraphEndpoint } from '../utils/chain';
 import { TOTAL_NFTS_NEW } from '../graphQL/daogroni';
 
 import { graphQuery } from '../utils/apollo';
+import { OverlayContext } from '../contexts/OverlayContext';
+import Modal from '../modals/modal';
+import Story from '../components/story';
 
 const Home = () => {
   const { daochain } = daogroniData;
   const [totalSold, setTotalSold] = useState(0);
+  // const { genericModal } = useAppModal();
+  const { setModal } = useContext(OverlayContext);
+  const location = useLocation();
 
   useEffect(() => {
+    console.log('location', location);
     const setup = async () => {
       const tokens = await graphQuery({
         // endpoint: getGraphEndpoint(daochain, 'erc721_graph_url'),
@@ -35,10 +43,28 @@ const Home = () => {
     if (daochain) {
       setup();
     }
-  }, [daochain]);
+    if (location.search === '?q=buyyouadrink') {
+      setModal({
+        title: 'A DAOgroni Story',
+        subtitle: 'Buy You a Drink',
+        body: <Story />,
+        width: '90%',
+      });
+    }
+  }, [daochain, location]);
+
+  const handleModalClick = () => {
+    setModal({
+      title: 'A DAOgroni Story',
+      subtitle: 'Buy You a Drink',
+      body: <Story />,
+      width: '90%',
+    });
+  };
 
   return (
     <Layout isDao>
+      <Modal />
       <Box p={{ base: 6, md: 10 }}>
         <Text color='tertiary.500' fontSize='5xl'>
           🥃 Daogroni
@@ -95,8 +121,17 @@ const Home = () => {
             <Text color='secondary.500' mb={2}>
               3. Have a say in how the Daogroni clubs spends its funds.
             </Text>
-            <Text color='secondary.500' mb={2}>
+            <Text color='secondary.500' mb={6}>
               4. Like the glassware? Collect them all!
+            </Text>
+
+            <Text
+              color='secondary.500'
+              _hover={{ cursor: 'pointer', color: 'secondary.100' }}
+              mb={2}
+              onClick={handleModalClick}
+            >
+              Buy you a drink?
             </Text>
           </Box>
         </Box>

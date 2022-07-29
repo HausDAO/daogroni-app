@@ -36,7 +36,7 @@ const Modal = () => {
       />
       <ModalContent
         rounded='lg'
-        bg='black'
+        bg='primary.500'
         maxWidth={width}
         maxH='100vh'
         overflowY='auto'
@@ -61,12 +61,19 @@ const Modal = () => {
                 fontWeight='500'
                 mr={4}
                 textTransform='capitalize'
+                color='tertiary.500'
               >
                 {title}
               </TextBox>
             )}
             {description && (
-              <TextBox size='sm' variant='body' opacity={0.9} mb={3}>
+              <TextBox
+                size='sm'
+                variant='body'
+                opacity={0.9}
+                mb={3}
+                color='tertiary.500'
+              >
                 {description}
               </TextBox>
             )}
